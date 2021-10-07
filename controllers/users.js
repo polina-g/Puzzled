@@ -11,6 +11,9 @@ userRouter.get('/clear', async (req, res) => {
     res.send('Succesfully Deleted Users');
 })
 //==========================NEW REGISTRATION===================================
+userRouter.get('/signup', (req, res) => {
+    res.render('signup.ejs');
+})
 //==========================CREATE REGISTRATION================================
 userRouter.post('/signup', async (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
