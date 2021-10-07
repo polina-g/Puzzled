@@ -9,6 +9,7 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const { urlencoded } = require('express');
 const userController = require('./controllers/users.js');
+const sessionController = require('./controllers/sessions.js');
 const PORT = process.env.PORT;
 const app = express();
 //=============================================================================
@@ -30,7 +31,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
-app.use('/', userController)
+app.use('/', userController);
+app.use('/', sessionController);
 //=============================================================================
 //PORT LISTEN
 //=============================================================================
