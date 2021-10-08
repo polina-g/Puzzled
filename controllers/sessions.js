@@ -16,7 +16,7 @@ sessionsRouter.post('/login', async (req, res) => {
         const user = await User.findOne({username: req.body.username});
         if(user && bcrypt.compareSync(req.body.password, user.password)) {
             req.session.user = user._id;
-            res.redirect('/');
+            res.redirect('/dashboard');
         } else {
             res.render('./sessions/new.ejs', {
                 error: 'Invalid Username or Password', 
@@ -31,7 +31,6 @@ sessionsRouter.post('/login', async (req, res) => {
 });
 //==========================LOGOUT ROUTE=======================================
 sessionsRouter.delete('/logout', async (req, res) => {
-    
     try {
         await req.session.destroy();
         res.redirect('/')
