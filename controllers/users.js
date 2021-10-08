@@ -27,8 +27,13 @@ userRouter.get('/signup', (req, res) => {
 //==========================CREATE REGISTRATION================================
 userRouter.post('/signup', async (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
-    const createdUser = await User.create(req.body);
-    res.redirect('/')
+    try {
+        const createdUser = await User.create(req.body);
+        req.session.user = createdUser._id;
+        res.redirect('/dashboard')
+    } catch (error) {
+        console.log('something went wrong when adding registration ', + error);
+    }
 });
 
 //============================USER MIDDLEWARE==================================
