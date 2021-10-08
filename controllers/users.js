@@ -12,7 +12,8 @@ userRouter.get('/clear', async (req, res) => {
 })
 //==========================NEW REGISTRATION===================================
 userRouter.get('/signup', (req, res) => {
-    res.render('signup.ejs');
+    res.render('./users/signup.ejs', {
+        user: req.session.user});
 })
 //==========================CREATE REGISTRATION================================
 userRouter.post('/signup', async (req, res) => {

@@ -25,7 +25,7 @@ db.on('disconnected', () => console.log('MongoDB disconnected'));
 //=============================================================================
 app.use(logger('dev'));
 app.use(methodOverride('_method'));
-app.use(urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
@@ -33,6 +33,14 @@ app.use(session({
 }));
 app.use('/', userController);
 app.use('/', sessionController);
+//=============================================================================
+//ROUTES
+//=============================================================================
+app.get('/', (req, res) => {
+    res.render('index.ejs', {
+        user: req.session.user
+    });
+})
 //=============================================================================
 //PORT LISTEN
 //=============================================================================
