@@ -6,7 +6,7 @@ const sessionsRouter = express.Router();
 
 //==========================LOGIN PAGE (NEW)===================================
 sessionsRouter.get('/login', (req, res) => {
-    res.render('sessions/new.ejs', {
+    res.render('sessions/login.ejs', {
         user: req.session.user
     });
 })
@@ -18,7 +18,7 @@ sessionsRouter.post('/login', async (req, res) => {
             req.session.user = user._id;
             res.redirect('/dashboard');
         } else {
-            res.render('./sessions/new.ejs', {
+            res.render('./sessions/login.ejs', {
                 error: 'Invalid Username or Password', 
                 user: req.session.user
             });
