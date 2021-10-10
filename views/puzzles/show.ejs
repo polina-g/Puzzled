@@ -7,7 +7,7 @@
 <body>
     <%- include('../partials/nav.ejs') %>
     <% console.log(user) %>
-    <h1><%= puzzle.name %></h1>
+    <h1><%= puzzle.title %></h1>
     <img src="<%=puzzle.img%>" width = "500px">
     <% if (puzzle.exchangeable == true) { %>
         <p>Exhangeable</p>

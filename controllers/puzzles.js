@@ -31,7 +31,7 @@ puzzleRouter.get('/dashboard', helper.isAuthenticated, helper.findUser, async (r
 });
 //==============================NEW (DONE, TESTED)=============================
 puzzleRouter.get('/new', helper.isAuthenticated, helper.findUser, (req, res) => { 
-    res.render('/puzzles/new.ejs', {
+    res.render('./puzzles/new.ejs', {
         user: req.user
     });
 });
@@ -44,9 +44,25 @@ puzzleRouter.delete('/:id', helper.isAuthenticated, async (req, res) => {
         console.log('Something went wrong deleting the puzzle. Error: ', error);
     };
 });
-//==============================UPDATE=========================================
-puzzleRouter.put('/:id', helper.isAuthenticated, (req, res) => {
-    res.send('UPDATE PUZZLE ROUTE');
+//==============================UPDATE(DONE, TESTED)===========================
+puzzleRouter.put('/:id', helper.isAuthenticated, async (req, res) => {
+    req.body.exchangeable = !!req.body.exchangeable;
+    if (req.body.img == '') {
+        const puzzle = await Puzzle.findById(req.params.id);
+        req.body.img = puzzle.img;
+    }
+    
+    try {
+        const newPuzzle = await Puzzle.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true},
+        );
+        console.log(newPuzzle);
+        res.redirect(`/puzzles/${req.params.id}`);
+    } catch (error) {
+        console.log('something went wront updating the puzzle. Error: ', error);
+    }
 });
 //==============================CREATE (DONE, TESTED)==========================
 puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, async (req, res) => {
@@ -59,15 +75,19 @@ puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, async (req, res)
         console.log('something went wrong creating new document. Error: ', error);
     }
 });
-//==============================EDIT===========================================
-puzzleRouter.get('/:id/edit', helper.isAuthenticated, helper.findUser, (req, res) => {
-    res.render('/puzzles/edit.ejs')
+//==============================EDIT(DONE, TESTED)=============================
+puzzleRouter.get('/:id/edit', helper.isAuthenticated, helper.findUser, async (req, res) => {
+    const puzzle = await Puzzle.findById(req.params.id);
+    res.render('./puzzles/edit.ejs', {
+        puzzle: puzzle,
+        user: req.user
+    });
 });
 //==============================SHOW(DONE, TESTED)=============================
 puzzleRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
         const puzzle = await Puzzle.findById(req.params.id);
-        res.render('/puzzles/show.ejs', {
+        res.render('./puzzles/show.ejs', {
             puzzle: puzzle,
             user: req.user
         });

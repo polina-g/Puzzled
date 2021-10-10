@@ -5,6 +5,22 @@
     <title>Edit Puzzle</title>
 </head>
 <body>
-    <%- include('../partials/nav.ejs') %>    
-</body>
+    <%- include('../partials/nav.ejs') %>
+    <h1>Edit <%= puzzle.title %></h1>
+    <form class="form" action = "/puzzles/<%= puzzle._id %>?_method=PUT" method="POST">
+      <input type="text" id="img" name="img" placeholder="Type in URL to change image">
+      <label for="img">URL</label>
+      <button type="button" class="btn btn-primary">Click to See New Image</button>
+      <div>
+        <img id="display-img" src="<%= puzzle.img %>" width="500px"><br>
+        <input type="text" id="title" name="title" value="<%= puzzle.title %>">
+        <label for="title">Puzzle Name</label><br>
+        <textarea name="description"><%= puzzle.description %></textarea><br>
+        <input id="exchangeable" type="checkbox" name="exchangeable"
+            <% if (puzzle.exchangeable) { %> checked <% } %>>
+        <label for="exchangeable">Exchangeable</label><br>
+        <button type="submit" class="btn btn-primary">Submit Changes</button>
+      </div>
+    </form>
+  </body>
 </html>
