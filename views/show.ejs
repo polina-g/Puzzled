@@ -6,5 +6,21 @@
 </head>
 <body>
     <%- include('./partials/nav.ejs') %>
+    <% console.log(user) %>
+    <h1><%= puzzle.name %></h1>
+    <img src="<%=puzzle.img%>" width = "500px">
+    <% if (puzzle.exchangeable == true) { %>
+        <p>Exhangeable</p>
+        <% if (puzzle.isAvailable == true) { %>
+        <p>Currently Available</p>
+        <% } else { %>
+            <p>Someone is currently enjoying this puzzle!</p>
+        <% }; %>
+        <% } else { %>
+        <p>Not Exchangeable</p>
+    <% }; %> 
+    <p><%= puzzle.description %></p>
+    <a href = "/puzzles/<%=puzzle._id%>/edit"><button class="btn btn-warning">Edit Puzzle</button></a>
+    <button class="btn btn-danger">Delete</button>
 </body>
 </html>

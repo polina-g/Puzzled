@@ -6,7 +6,7 @@ const puzzleSeed = require('../models/seed.js');
 //=============================================================================
 //ROUTES
 //=============================================================================
-//==============================SEEDING (DONE TESTED)==========================
+//==============================SEEDING (DONE, TESTED)=========================
 puzzleRouter.get('/seed', helper.isAuthenticated, async (req, res) => {
     puzzleSeed.forEach(puzzle => {puzzle.owner_user = req.session.user});
     try {
@@ -17,7 +17,7 @@ puzzleRouter.get('/seed', helper.isAuthenticated, async (req, res) => {
         console.log('An error occured adding seed puzzles, see details: ', error);
     }; 
 });
-//==============================INDEX (DONE TESTED)============================
+//==============================INDEX (DONE, TESTED)===========================
 puzzleRouter.get('/dashboard', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
         const puzzles = await Puzzle.find({'owner_user': req.user});
@@ -29,7 +29,7 @@ puzzleRouter.get('/dashboard', helper.isAuthenticated, helper.findUser, async (r
         console.log('something went wrong loading dashboard: ', error);
     };
 });
-//==============================NEW (DONE TESTED)==============================
+//==============================NEW (DONE, TESTED)=============================
 puzzleRouter.get('/new', helper.isAuthenticated, helper.findUser, (req, res) => { 
     res.render('new.ejs', {
         user: req.user
@@ -43,7 +43,7 @@ puzzleRouter.delete('/:id', helper.isAuthenticated, (req, res) => {
 puzzleRouter.put('/:id', helper.isAuthenticated, (req, res) => {
     res.send('UPDATE PUZZLE ROUTE');
 });
-//==============================CREATE=========================================
+//==============================CREATE (DONE, TESTED)==========================
 puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
         req.body.owner_user = req.session.user;
@@ -58,9 +58,17 @@ puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, async (req, res)
 puzzleRouter.get('/:id/edit', helper.isAuthenticated, (req, res) => {
     res.send('EDIT PUZZLE ROUTE');
 });
-//==============================SHOW===========================================
-puzzleRouter.get('/:id', helper.isAuthenticated, (req, res) => {
-    res.send('SHOW PUZZLE ROUTE');
+//==============================SHOW(DONE)=====================================
+puzzleRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, res) => {
+    try {
+        const puzzle = await Puzzle.findById(req.params.id);
+        res.render('show.ejs', {
+            puzzle: puzzle,
+            user: req.user
+        });
+    } catch (error) {
+        console.log('something went wron showing the puzzle. Error: ', error);
+    }
 });
 
 module.exports = puzzleRouter; 
