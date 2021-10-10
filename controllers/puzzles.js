@@ -12,7 +12,7 @@ puzzleRouter.get('/seed', helper.isAuthenticated, async (req, res) => {
     try {
         await Puzzle.deleteMany({});
         const addedPuzzles = await Puzzle.create(puzzleSeed);
-        console.log(addedPuzzles);
+        res.redirect('/puzzles/dashboard');
     } catch (error) {
         console.log('An error occured adding seed puzzles, see details: ', error);
     }; 
@@ -21,7 +21,7 @@ puzzleRouter.get('/seed', helper.isAuthenticated, async (req, res) => {
 puzzleRouter.get('/dashboard', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
         const puzzles = await Puzzle.find({'owner_user': req.user});
-        res.render('dashboard.ejs', {
+        res.render('./puzzles/dashboard.ejs', {
             user: req.user, 
             puzzles: puzzles
         });
@@ -31,7 +31,7 @@ puzzleRouter.get('/dashboard', helper.isAuthenticated, helper.findUser, async (r
 });
 //==============================NEW (DONE, TESTED)=============================
 puzzleRouter.get('/new', helper.isAuthenticated, helper.findUser, (req, res) => { 
-    res.render('new.ejs', {
+    res.render('/puzzles/new.ejs', {
         user: req.user
     });
 });
@@ -60,14 +60,14 @@ puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, async (req, res)
     }
 });
 //==============================EDIT===========================================
-puzzleRouter.get('/:id/edit', helper.isAuthenticated, (req, res) => {
-    res.send('EDIT PUZZLE ROUTE');
+puzzleRouter.get('/:id/edit', helper.isAuthenticated, helper.findUser, (req, res) => {
+    res.render('/puzzles/edit.ejs')
 });
 //==============================SHOW(DONE, TESTED)=============================
 puzzleRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
         const puzzle = await Puzzle.findById(req.params.id);
-        res.render('show.ejs', {
+        res.render('/puzzles/show.ejs', {
             puzzle: puzzle,
             user: req.user
         });
