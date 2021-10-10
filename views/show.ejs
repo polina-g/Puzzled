@@ -20,7 +20,10 @@
         <p>Not Exchangeable</p>
     <% }; %> 
     <p><%= puzzle.description %></p>
-    <a href = "/puzzles/<%=puzzle._id%>/edit"><button class="btn btn-warning">Edit Puzzle</button></a>
-    <button class="btn btn-danger">Delete</button>
+    <a href = "/puzzles/<%= puzzle._id %>/edit"><button class="btn btn-warning">Edit Puzzle</button></a>
+    <form action="/puzzles/<%= puzzle._id %>?_method=DELETE", method="POST">
+        <button class="btn btn-danger">Delete</button>
+    </form>
+    
 </body>
 </html>

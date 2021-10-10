@@ -35,9 +35,14 @@ puzzleRouter.get('/new', helper.isAuthenticated, helper.findUser, (req, res) => 
         user: req.user
     });
 });
-//==============================DELETE=========================================
-puzzleRouter.delete('/:id', helper.isAuthenticated, (req, res) => {
-    res.send("DELETE PUZZLE ROUTE");
+//==============================DELETE(DONE, TESTED)===========================
+puzzleRouter.delete('/:id', helper.isAuthenticated, async (req, res) => {
+    try {
+        await Puzzle.findByIdAndDelete(req.params.id);
+        res.redirect('/puzzles/dashboard');
+    } catch (error) {
+        console.log('Something went wrong deleting the puzzle. Error: ', error);
+    };
 });
 //==============================UPDATE=========================================
 puzzleRouter.put('/:id', helper.isAuthenticated, (req, res) => {
@@ -58,7 +63,7 @@ puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, async (req, res)
 puzzleRouter.get('/:id/edit', helper.isAuthenticated, (req, res) => {
     res.send('EDIT PUZZLE ROUTE');
 });
-//==============================SHOW(DONE)=====================================
+//==============================SHOW(DONE, TESTED)=============================
 puzzleRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
         const puzzle = await Puzzle.findById(req.params.id);
