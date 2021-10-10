@@ -2,29 +2,25 @@
 <html lang="en">
   <head>
     <%- include('./partials/head.ejs') %>
-    <title>MEEN Auth Starter</title>
+    <title>Upload Puzzle</title>
   </head>
 
   <body>
     <%- include('./partials/nav.ejs') %>
-    <h1>Welcome to your Dashboard <%= user.username %></h1>
-    <div>
-      <% puzzles.forEach(puzzle => { %>
-        <h2><%= puzzle.name %></h2>
-        <img src="<%= puzzle.img %>" width="200px">
-        <p><%= puzzle.description %></p>
-        <% if (puzzle.exchangeable == true) { %>
-          <p>Exhangeable</p>
-          <% } else { %>
-            <p>Not Exchangeable</p>
-          <% }; %> 
-
-        <% if (puzzle.isAvailable == true) { %>
-          <p>Available for Exchange</p>
-          <% } else { %>
-            <p>Someone is currently enjoying this puzzle!</p>
-          <% }; %>
-        <% }); %>
-    </div>
+    <h1>Add Puzzle</h1>
+    <form clas="form" action = "/puzzles" method="POST">
+      <input type="text" id="img" name="img" placeholder="type you URL here" required>
+      <label for="img">URL</label>
+      <button type="button" class="btn btn-primary">Upload Image</button>
+      <div>
+        <img id="display-img" src="">
+        <input type="text" id="name" name="name" placeholder="Puzzle Name">
+        <label for="name">Puzzle Name</label><br>
+        <textarea name="description" placeholder="Brief Description"></textarea><br>
+        <input id="exchangeable" type="checkbox" name="exchangeable">
+        <label for="exchangeable">Exchangeable</label><br>
+        <button type="submit" class="btn btn-primary">Add Puzzle</button>
+      </div>
+    </form>
   </body>
 </html>

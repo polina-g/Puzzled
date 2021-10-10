@@ -15,22 +15,25 @@ puzzleRouter.get('/seed', helper.isAuthenticated, async (req, res) => {
         console.log(addedPuzzles);
     } catch (error) {
         console.log('An error occured adding seed puzzles, see details: ', error);
-    }
-    
-})
-//==============================INDEX==========================================
-puzzleRouter.get('/dashboard', helper.isAuthenticated, async (req, res) => {
+    }; 
+});
+//==============================INDEX (DONE TESTED)============================
+puzzleRouter.get('/dashboard', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
-        const user = await User.findById(req.session.user);
-        const puzzles = await Puzzle.find({'owner_user': user});
-        res.render('dashboard.ejs', {user, puzzles});
+        const puzzles = await Puzzle.find({'owner_user': req.user});
+        res.render('dashboard.ejs', {
+            user: req.user, 
+            puzzles: puzzles
+        });
     } catch (error) {
         console.log('something went wrong loading dashboard: ', error);
-    }
+    };
 });
-//==============================NEW============================================
-puzzleRouter.get('/new', helper.isAuthenticated, (req, res) => {
-    res.render('new.ejs');
+//==============================NEW (DONE TESTED)==============================
+puzzleRouter.get('/new', helper.isAuthenticated, helper.findUser, (req, res) => { 
+    res.render('new.ejs', {
+        user: req.user
+    });
 });
 //==============================DELETE=========================================
 puzzleRouter.delete('/:id', helper.isAuthenticated, (req, res) => {
@@ -41,16 +44,23 @@ puzzleRouter.put('/:id', helper.isAuthenticated, (req, res) => {
     res.send('UPDATE PUZZLE ROUTE');
 });
 //==============================CREATE=========================================
-puzzleRouter.post('/', helper.isAuthenticated, (req, res) => {
-    res.send('CREATE PUZZLE ROUTE')
-})
+puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, async (req, res) => {
+    try {
+        req.body.owner_user = req.session.user;
+        req.body.exchangeable = !!req.body.exchangeable;
+        const createdPuzzle = await Puzzle.create(req.body);
+        res.redirect('/puzzles/dashboard');
+    } catch (error) {
+        console.log('something went wrong creating new document. Error: ', error);
+    }
+});
 //==============================EDIT===========================================
 puzzleRouter.get('/:id/edit', helper.isAuthenticated, (req, res) => {
     res.send('EDIT PUZZLE ROUTE');
-})
+});
 //==============================SHOW===========================================
 puzzleRouter.get('/:id', helper.isAuthenticated, (req, res) => {
     res.send('SHOW PUZZLE ROUTE');
-})
+});
 
 module.exports = puzzleRouter; 

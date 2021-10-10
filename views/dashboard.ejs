@@ -15,15 +15,14 @@
         <p><%= puzzle.description %></p>
         <% if (puzzle.exchangeable == true) { %>
           <p>Exhangeable</p>
+          <% if (puzzle.isAvailable == true) { %>
+            <p>Available for Exchange</p>
+            <% } else { %>
+              <p>Someone is currently enjoying this puzzle!</p>
+            <% }; %>
           <% } else { %>
             <p>Not Exchangeable</p>
           <% }; %> 
-
-        <% if (puzzle.isAvailable == true) { %>
-          <p>Available for Exchange</p>
-          <% } else { %>
-            <p>Someone is currently enjoying this puzzle!</p>
-          <% }; %>
         <% }); %>
     </div>
   </body>

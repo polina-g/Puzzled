@@ -1,3 +1,5 @@
+//============================DEPENDECIES======================================
+const User = require('../models/user.js');
 //============================USER MIDDLEWARE==================================
 function isAuthenticated(req, res, next) {
     if(!req.session.user) { 
@@ -6,6 +8,13 @@ function isAuthenticated(req, res, next) {
     next(); 
 }
 
+async function findUser(req, res, next) {
+    const user = await User.findById(req.session.user);
+    req.user = user;
+    next();
+}
+
 module.exports = {
-    isAuthenticated
+    isAuthenticated,
+    findUser
 }
