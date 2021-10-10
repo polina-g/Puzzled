@@ -16,7 +16,7 @@ sessionsRouter.post('/login', async (req, res) => {
         const user = await User.findOne({username: req.body.username});
         if(user && bcrypt.compareSync(req.body.password, user.password)) {
             req.session.user = user._id;
-            res.redirect('/dashboard');
+            res.redirect('/puzzles/dashboard');
         } else {
             res.render('./sessions/login.ejs', {
                 error: 'Invalid Username or Password', 

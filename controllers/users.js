@@ -1,23 +1,14 @@
-const express = require('express');
-const userRouter = express.Router();
+const userRouter = require('express').Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/user.js');
+const Puzzle = require('../models/puzzle.js');
 //=============================================================================
 //ROUTES
 //=============================================================================
-//==========================CLEAR USERS========================================
+//==========================CLEAR USERS DB=====================================
 userRouter.get('/clear', async (req, res) => {
     await User.deleteMany({});
     res.send('Succesfully Deleted Users');
-})
-//==========================INDEX (DASHBOARD)==================================
-userRouter.get('/dashboard', isAuthenticated, async (req, res) => {
-    try {
-        const user = await User.findById(req.session.user);
-        res.render('dashboard.ejs', {user});
-    } catch (error) {
-        console.log('something went wrong loading dashboard: ', error);
-    }
 })
 //==========================NEW REGISTRATION===================================
 userRouter.get('/signup', (req, res) => {
@@ -35,13 +26,5 @@ userRouter.post('/signup', async (req, res) => {
         console.log('something went wrong when adding registration ', + error);
     }
 });
-
-//============================USER MIDDLEWARE==================================
-function isAuthenticated(req, res, next) {
-    if(!req.session.user) { 
-        return res.redirect('/login');
-    } 
-    next(); 
-}
 
 module.exports = userRouter;
