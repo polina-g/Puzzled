@@ -1,12 +1,12 @@
 <nav>
   <% if(user) { %>
-  <a href="/">Home</a>
-  <button class="btn">Upload</button>
-  <button class="btn">Explore</button> 
+  <a href="/" class="btn btn-warning">Home</a>
+  <button class="btn btn-primary">Upload</button>
+  <button class="btn btn-primary">Explore</button> 
   <form action="/logout?_method=DELETE" method="POST">
-    <input type="submit" value="Log Out" />
+    <input class="btn btn-danger"type="submit" value="Log Out" />
   </form>
-  <button class="btn">My Box</button>
+  <button class="btn btn-info">My Box</button>
   <% } else { %>
   <a href="/">Home</a>
   <a href="/signup">Register</a>
