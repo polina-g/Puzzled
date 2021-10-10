@@ -6,7 +6,7 @@ const puzzleSeed = require('../models/seed.js');
 //=============================================================================
 //ROUTES
 //=============================================================================
-//==============================SEEDING========================================
+//==============================SEEDING (DONE TESTED)==========================
 puzzleRouter.get('/seed', helper.isAuthenticated, async (req, res) => {
     puzzleSeed.forEach(puzzle => {puzzle.owner_user = req.session.user});
     try {
@@ -22,7 +22,8 @@ puzzleRouter.get('/seed', helper.isAuthenticated, async (req, res) => {
 puzzleRouter.get('/dashboard', helper.isAuthenticated, async (req, res) => {
     try {
         const user = await User.findById(req.session.user);
-        res.render('dashboard.ejs', {user});
+        const puzzles = await Puzzle.find({'owner_user': user});
+        res.render('dashboard.ejs', {user, puzzles});
     } catch (error) {
         console.log('something went wrong loading dashboard: ', error);
     }

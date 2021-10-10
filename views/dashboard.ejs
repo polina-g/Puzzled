@@ -9,6 +9,24 @@
 
   <body>
     <%- include('./partials/nav.ejs') %>
-    <h1>Dashboard</h1>
+    <h1>Welcome to your Dashboard <%= user.username %></h1>
+    <div>
+      <% puzzles.forEach(puzzle => { %>
+        <h2><%= puzzle.name %></h2>
+        <img src="<%= puzzle.img %>" width="200px">
+        <p><%= puzzle.description %></p>
+        <% if (puzzle.exchangeable == true) { %>
+          <p>Exhangeable</p>
+          <% } else { %>
+            <p>Not Exchangeable</p>
+          <% }; %> 
+
+        <% if (puzzle.isAvailable == true) { %>
+          <p>Available for Exchange</p>
+          <% } else { %>
+            <p>Someone is currently enjoying this puzzle!</p>
+          <% }; %>
+        <% }); %>
+    </div>
   </body>
 </html>
