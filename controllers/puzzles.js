@@ -30,7 +30,7 @@ puzzleRouter.get('/dashboard', helper.isAuthenticated, async (req, res) => {
 });
 //==============================NEW============================================
 puzzleRouter.get('/new', helper.isAuthenticated, (req, res) => {
-    res.send('NEW PUZZLE ROUTE');
+    res.render('new.ejs');
 });
 //==============================DELETE=========================================
 puzzleRouter.delete('/:id', helper.isAuthenticated, (req, res) => {
