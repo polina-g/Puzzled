@@ -6,5 +6,12 @@
 </head>
 <body>
     <%- include('../partials/nav.ejs') %>
+    <h1>Explore Available Puzzles!</h1>
+    <% puzzles.forEach(puzzle => { %>
+        <img src="<%= puzzle.img %>" width="300px">
+        <h2><%= puzzle.title %></h2>
+        <p><%= puzzle.description %> </p>
+        <a href="/explore/<%= puzzle._id %>"><button class="btn btn-info">View Details</button></a><br>
+    <% }) %>
 </body>
 </html>

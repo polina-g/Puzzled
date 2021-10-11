@@ -21,7 +21,7 @@ userRouter.post('/signup', async (req, res) => {
     try {
         const createdUser = await User.create(req.body);
         req.session.user = createdUser._id;
-        res.redirect('/dashboard')
+        res.redirect('puzzles/dashboard')
     } catch (error) {
         console.log('something went wrong when adding registration ', + error);
     }

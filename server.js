@@ -10,7 +10,8 @@ const methodOverride = require('method-override');
 const indexController = require('./controllers/index.js');
 const userController = require('./controllers/users.js');
 const sessionController = require('./controllers/sessions.js');
-const puzzleController = require('./controllers/puzzles.js')
+const puzzleController = require('./controllers/puzzles.js');
+const exploreController = require('./controllers/explore.js');
 const PORT = process.env.PORT;
 const app = express();
 //=============================================================================
@@ -36,6 +37,7 @@ app.use('/', indexController);
 app.use('/', userController);
 app.use('/', sessionController);
 app.use('/puzzles', puzzleController);
+app.use('/explore', exploreController);
 //=============================================================================
 //PORT LISTEN
 //=============================================================================

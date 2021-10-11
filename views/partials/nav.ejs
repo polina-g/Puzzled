@@ -2,7 +2,7 @@
   <% if(user) { %>
   <a href="/puzzles/dashboard" class="btn btn-warning">Dashboard</a>
   <a href="/puzzles/new"><button class="btn btn-primary">Upload</button></a>
-  <button class="btn btn-primary">Explore</button> 
+  <a href="/explore"><button class="btn btn-primary">Explore</button></a> 
   <form action="/logout?_method=DELETE" method="POST">
     <input class="btn btn-danger" type="submit" value="Log Out" />
   </form>
