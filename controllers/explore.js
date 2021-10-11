@@ -18,13 +18,19 @@ exploreRouter.get('/', helper.isAuthenticated, helper.findUser, async (req, res)
     };
 });
 //==============================SHOW===========================================
-exploreRouter.get('/:id', helper.isAuthenticated, async (req, res) => {
-    res.send('SHOW EXPLORE PUZZLES ROUTE');
+exploreRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, res) => {
+    try {
+        const puzzle = await Puzzle.findById(req.params.id); 
+        res.render('./explore/show.ejs', {
+            puzzle: puzzle,
+            user: req.user
+        });   
+    } catch (error) {
+        console.log('Something went wrong loading the explore puzzle show page! Error: ', error);
+    };   
 });
 
 
-
-// find({'exchangeable': 'true', 'isAvailable': 'true'})
 module.exports = exploreRouter; 
 
 

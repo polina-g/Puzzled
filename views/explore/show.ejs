@@ -2,9 +2,21 @@
 <html lang="en">
 <head>
     <%- include('../partials/head.ejs') %>
-    <title>Puzzle</ti.tle>
+    <title>Puzzle</title>
 </head>
 <body>
     <%- include('../partials/nav.ejs') %>
+    <h1><%= puzzle.title %></h1>
+    <img src="<%=puzzle.img%>" width = "500px">
+        <% if (puzzle.isAvailable == true) { %>
+        <p>Currently Available</p>
+        <% } else { %>
+            <p>Someone is currently enjoying this puzzle!</p>
+        <% }; %>
+    <p><%= puzzle.description %></p>
+    <form action="/explore/inventory", method="POST">
+        <button class="btn btn-primary">Add to Exchange Inventory</button>
+    </form>
+    
 </body>
 </html>
