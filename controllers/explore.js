@@ -8,7 +8,7 @@ const helper = require('../helpers/middleware.js');
 //==============================INDEX==========================================
 exploreRouter.get('/', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
-        const allPuzzles = await Puzzle.find({'exchangeable': 'true', 'isAvailable': 'true'});
+        const allPuzzles = await Puzzle.find({'exchangeable': 'true', 'isAvailable': 'true', 'owner_user': {$ne: req.session.user}});
         res.render('./explore/explore.ejs', {
             puzzles: allPuzzles,
             user: req.user
@@ -24,7 +24,7 @@ exploreRouter.get('/:id', helper.isAuthenticated, async (req, res) => {
 
 
 
-
+// find({'exchangeable': 'true', 'isAvailable': 'true'})
 module.exports = exploreRouter; 
 
 
