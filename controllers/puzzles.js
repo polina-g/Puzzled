@@ -2,16 +2,40 @@ const puzzleRouter = require('express').Router();
 const Puzzle = require('../models/puzzle.js');
 const User = require('../models/user.js');
 const helper = require('../helpers/middleware.js');
-const puzzleSeed = require('../models/seed.js');
+const puzzleSeedA = require('../models/seed.js');
+const puzzleSeedB = require('../models/seedB.js');
+const puzzleSeedC = require('../models/seedC.js');
 //=============================================================================
 //ROUTES
 //=============================================================================
 //==============================SEEDING (DONE, TESTED)=========================
-puzzleRouter.get('/seed', helper.isAuthenticated, async (req, res) => {
-    puzzleSeed.forEach(puzzle => {puzzle.owner_user = req.session.user});
+puzzleRouter.get('/seedA', helper.isAuthenticated, async (req, res) => {
+    puzzleSeedA.forEach(puzzle => {puzzle.owner_user = req.session.user});
     try {
-        await Puzzle.deleteMany({});
-        const addedPuzzles = await Puzzle.create(puzzleSeed);
+        await Puzzle.deleteMany({'owner_user': req.session.user});
+        const addedPuzzles = await Puzzle.create(puzzleSeedA);
+        res.redirect('/puzzles/dashboard');
+    } catch (error) {
+        console.log('An error occured adding seed puzzles, see details: ', error);
+    }; 
+});
+
+puzzleRouter.get('/seedB', helper.isAuthenticated, async (req, res) => {
+    puzzleSeedB.forEach(puzzle => {puzzle.owner_user = req.session.user});
+    try {
+        await Puzzle.deleteMany({'owner_user': req.session.user});
+        const addedPuzzles = await Puzzle.create(puzzleSeedB);
+        res.redirect('/puzzles/dashboard');
+    } catch (error) {
+        console.log('An error occured adding seed puzzles, see details: ', error);
+    }; 
+});
+
+puzzleRouter.get('/seedC', helper.isAuthenticated, async (req, res) => {
+    puzzleSeedC.forEach(puzzle => {puzzle.owner_user = req.session.user});
+    try {
+        await Puzzle.deleteMany({'owner_user': req.session.user});
+        const addedPuzzles = await Puzzle.create(puzzleSeedC);
         res.redirect('/puzzles/dashboard');
     } catch (error) {
         console.log('An error occured adding seed puzzles, see details: ', error);

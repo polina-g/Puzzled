@@ -9,7 +9,7 @@ module.exports = [
         title: 'Magic Puzzle Company: The Mystic Maze',
         img: 'https://i.imgur.com/o8xfIZv.jpg',
         description: 'Fun, original and creative puzzle with a secret twist! (Not Shown on photo). 1000 Pieces',
-        exchangeabls: true
+        exchangeable: true
     },
     {
         title: 'Game of Thrones: Puzzle of Essos',

@@ -16,6 +16,15 @@ userRouter.get('/signup', (req, res) => {
     res.render('./users/signup.ejs', {
         user: req.session.user});
 })
+//==========================REMOVE FROM INVENTORY==============================
+userRouter.delete('/inventory/:index/:puzzleId', helper.isAuthenticated, helper.findUser, async (req, res) => {
+    const puzzle = await Puzzle.findById(req.params.puzzleId);
+    puzzle.isAvailable = true;
+    await puzzle.save();
+    req.user.exchange_inventory.splice(req.params.index, 1); 
+    await req.user.save();
+    res.redirect('/inventory');
+});
 //==========================CREATE REGISTRATION================================
 userRouter.post('/signup', async (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
@@ -27,7 +36,7 @@ userRouter.post('/signup', async (req, res) => {
         console.log('something went wrong when adding registration ', + error);
     }
 });
-//==========================ADD PUZZLE TO EXCHANGE INVENTORY===================
+//==========================UPDATE EXCHANGE INVENTORY==========================
 userRouter.put('/:id/add', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
     //TODO
@@ -38,19 +47,19 @@ userRouter.put('/:id/add', helper.isAuthenticated, helper.findUser, async (req, 
         puzzle.save();
         //Update User model to add puzzle object in the puzzle array
         req.user.exchange_inventory.push(puzzle);
-        req.user.save();
+        await req.user.save();
         //Redirect to show all inventory
         res.redirect('/inventory');
     } catch (error) {
         console.log('Somethng went wrong adding puzzle to exchange inventory! Error: ', error);
     }
-
-
 });
 //==========================ADD PUZZLE TO EXCHANGE INVENTORY===================
 userRouter.get('/inventory', helper.isAuthenticated, helper.findUser, (req, res) => {
-    res.render('./users/inventory.ejs');
-})
+    res.render('./users/inventory.ejs', {
+        user: req.user
+    });
+});
 
 
 
