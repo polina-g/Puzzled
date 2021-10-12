@@ -8,19 +8,40 @@
   <body>
     <%- include('../partials/nav.ejs') %>
     <h1>Add Puzzle</h1>
-    <form class="form" action = "/puzzles" method="POST">
-      <input type="text" id="img" name="img" placeholder="type you URL here" required>
-      <label for="img">URL</label>
-      <button type="button" class="btn btn-primary">Upload Image</button>
-      <div>
-        <img id="display-img" src="">
-        <input type="text" id="title" name="title" placeholder="Puzzle Title">
-        <label for="title">Puzzle Name</label><br>
-        <textarea name="description" placeholder="Brief Description"></textarea><br>
-        <input id="exchangeable" type="checkbox" name="exchangeable">
-        <label for="exchangeable">Exchangeable</label><br>
-        <button type="submit" class="btn btn-primary">Add Puzzle</button>
-      </div>
-    </form>
+    <div class="container" style="max-width:80%;">
+      <form action = "/puzzles" method="POST">
+        <div class="row justify-content-center p-2">
+          <div class="col-md-6">
+            <label for="img" class="form-label">Image URL</label>
+            <input class="form-control" type="text" id="img" name="img" placeholder="type you URL here" required>
+          </div>
+        </div>
+        <div class="row justify-content-center my-3">
+          <div class="col-md-2">
+            <button type="button" class="btn btn-primary">Upload Image</button>
+          </div>
+        </div>
+        <div class="container my-5 shadow p-3 mb-5 bg-body rounded">
+          <div class="row">
+            <div class="col-md-6 p-3">
+              <img id="display-img" src="https://i.imgur.com/hHjTONVm.png" width="100%">
+            </div>
+            <div class="col-md-6 p-4">
+                  <label for="title" class="form-label">Puzzle Name</label><br>
+                  <input type="text" class="form-control mb-4" id="title" name="title" placeholder="Puzzle Title">
+                  <label for="description" class="form-label">Brief Description</label>
+                  <textarea name="description" placeholder="Write brief description about the puzzle" class="form-control" rows="6"></textarea><br>
+                  <input id="exchangeable" type="checkbox" name="exchangeable" class="form-check-input">
+                  <label for="exchangeable" class="form-check-label">Exchangeable</label><br>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-2 p-4">
+              <button type="submit" class="btn btn-primary">Add Puzzle</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
