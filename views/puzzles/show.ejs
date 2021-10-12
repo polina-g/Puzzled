@@ -6,23 +6,37 @@
 </head>
 <body>
     <%- include('../partials/nav.ejs') %>
-    <h1><%= puzzle.title %></h1>
-    <img src="<%=puzzle.img%>" width = "500px">
-    <% if (puzzle.exchangeable == true) { %>
-        <p>Exhangeable</p>
-        <% if (puzzle.isAvailable == true) { %>
-        <p>Currently Available</p>
-        <% } else { %>
-            <p>Someone is currently enjoying this puzzle!</p>
-        <% }; %>
-        <% } else { %>
-        <p>Not Exchangeable</p>
-    <% }; %> 
-    <p><%= puzzle.description %></p>
-    <a href = "/puzzles/<%= puzzle._id %>/edit"><button class="btn btn-warning">Edit Puzzle</button></a>
-    <form action="/puzzles/<%= puzzle._id %>?_method=DELETE", method="POST">
-        <button class="btn btn-danger">Delete</button>
-    </form>
-    
+    <div class="container-fluid text-center">
+        <img src="https://i.imgur.com/iWw6nnu.png" width="200px">
+    </div>
+    <div class="container card mb-3 my-3 border-light shadow p-3 mb-5 bg-body rounded" style="max-width: 80%;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="<%=puzzle.img%>" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title"><%= puzzle.title %></h1>
+                    <p class="card-text fs-4"><%= puzzle.description %></p>
+                    <p class="card-text"><small class="text-muted"><% if (puzzle.exchangeable == true) { %>
+                    Exhangeable<br>
+                    <% if (puzzle.isAvailable == true) { %>
+                    Currently Available
+                    <% } else { %>
+                        Someone is currently enjoying this puzzle!
+                    <% }; %>
+                    <% } else { %>
+                    Not Exchangeable
+                    <% }; %> </small></p>
+                    <div class="container d-flex justify-content-end">
+                        <a href = "/puzzles/<%= puzzle._id %>/edit"><button class="btn btn-warning mx-2">Edit Puzzle</button></a>
+                        <form action="/puzzles/<%= puzzle._id %>?_method=DELETE", method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

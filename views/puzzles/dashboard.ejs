@@ -7,23 +7,32 @@
 
   <body>
     <%- include('../partials/nav.ejs') %>
-    <h1>Welcome to your Dashboard <%= user.username %></h1>
-    <div>
+    <div class="container">
+      <h1 class="text-center">
+        Welcome to your Dashboard <%= user.username %>
+      </h1>
+    </div>
+    <div class="container d-flex flex-wrap">
       <% puzzles.forEach(puzzle => { %>
-        <h2><%= puzzle.name %></h2>
-        <img src="<%= puzzle.img %>" width="200px">
-        <p><%= puzzle.description %></p>
-        <% if (puzzle.exchangeable == true) { %>
-          <p>Exhangeable</p>
-          <% if (puzzle.isAvailable == true) { %>
-            <p>Available for Exchange</p>
-            <% } else { %>
-              <p>Someone is currently enjoying this puzzle!</p>
-            <% }; %>
-          <% } else { %>
-            <p>Not Exchangeable</p>
-        <% }; %> 
-        <a href = "/puzzles/<%= puzzle._id %>"><button class="btn btn-info">View</button></a>
+        <div class="card mx-3 my-3 border-info shadow mb-5 bg-body rounded" style="width: 25rem;">
+          <img src="<%= puzzle.img %>" class="card-img-top h-100" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%= puzzle.title %></h5>
+            <p class="card-text">        <% if (puzzle.exchangeable == true) { %>
+              Exhangeable<br>
+              <% if (puzzle.isAvailable == true) { %>
+                Available for Exchange
+                <% } else { %>
+                  Someone is currently enjoying this puzzle!
+                <% }; %>
+              <% } else { %>
+                Not Exchangeable
+            <% }; %> </p>
+            <div class="text-center">
+              <a href = "/puzzles/<%= puzzle._id %>"><button class="btn btn-info">View</button></a>
+            </div>
+          </div>
+        </div>
       <% }); %>
     </div>
   </body>
