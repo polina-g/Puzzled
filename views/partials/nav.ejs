@@ -1,15 +1,23 @@
-<nav>
-  <% if(user) { %>
-  <a href="/puzzles/dashboard" class="btn btn-warning">Dashboard</a>
-  <a href="/puzzles/new"><button class="btn btn-primary">Upload</button></a>
-  <a href="/explore"><button class="btn btn-primary">Explore</button></a> 
-  <form action="/logout?_method=DELETE" method="POST">
-    <input class="btn btn-danger" type="submit" value="Log Out" />
-  </form>
-  <a href = "/inventory"><button class="btn btn-info">My Box</button></a>
-  <% } else { %>
-  <a href="/">Home</a>
-  <a href="/signup">Register</a>
-  <a href="/login">Login</a>
-  <% } %>
+<nav class="navbar navbar-light">
+  <div class="container-fluid d-flex justify-content-end">
+      <% if(user) { %>
+          <a href="/" class="navbar-brand">
+            <img src="https://i.imgur.com/X2G7JQX.png" width="80px">
+          </a>
+      <div class="d-flex flex-fill">
+        <a href="/puzzles/dashboard" class="btn btn-lg btn-outline-success">Dashboard</a>
+      </div>
+      <a href="/puzzles/new"><button class="btn btn-lg btn-outline-primary ms-1">Upload</button></a>
+      <a href="/explore"><button class="btn btn-lg btn-outline-primary ms-1">Explore</button></a>
+      <a href = "/inventory"><button class="btn btn-lg btn-outline-primary ms-1">My Exchange Inventory</button></a> 
+      <div class="ms-4">
+        <form action="/logout?_method=DELETE" method="POST">
+          <input class="btn btn-lg btn-outline-danger" type="submit" value="Log Out" />
+        </form>
+      </div>
+      <% } else { %>
+      <a href="/signup"><button class="btn btn-lg btn-outline-primary">Sign Up</button></a>
+      <a href="/login"><button class="btn btn-lg btn-outline-primary ms-2">Login</button></a>
+      <% } %>
+  </div>
 </nav>
