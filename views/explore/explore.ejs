@@ -6,12 +6,21 @@
 </head>
 <body>
     <%- include('../partials/nav.ejs') %>
-    <h1>Explore Available Puzzles!</h1>
-    <% puzzles.forEach(puzzle => { %>
-        <img src="<%= puzzle.img %>" width="300px">
-        <h2><%= puzzle.title %></h2>
-        <p><%= puzzle.description %> </p>
-        <a href="/explore/<%= puzzle._id %>"><button class="btn btn-info">View Details</button></a><br>
-    <% }) %>
+    <h1 class="text-center">Explore Available Puzzles!</h1>
+    
+    <div class="container d-flex flex-wrap">
+        <% puzzles.forEach(puzzle => { %>
+          <div class="card mx-3 my-3 border-info shadow mb-5 bg-body rounded" style="width: 25rem;">
+            <img src="<%= puzzle.img %>" class="card-img-top" height="300px" alt="...">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><%= puzzle.title %></h5>
+              <p class="card-text"><%= puzzle.description %></p>
+              <div class="text-center mt-auto">
+                <a href = "/explore/<%= puzzle._id %>"><button class="btn btn-info">View</button></a>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+    </div>
 </body>
 </html>
