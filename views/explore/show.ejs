@@ -15,7 +15,7 @@
                 <img src="<%=puzzle.img%>" class="img-fluid rounded-start" alt="...">
             </div>
             <div class="col-md-8">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column" style="height: 100%;">
                     <h1 class="card-title"><%= puzzle.title %></h1>
                     <p class="card-text fs-4"><%= puzzle.description %></p>
                     <p class="card-text">
@@ -27,9 +27,11 @@
                         <% }; %>
                         </small>
                     </p>
-                    <form action="/<%= puzzle._id %>/add?_method=PUT", method="POST">
-                        <button class="btn btn-primary">Add to Exchange Inventory</button>
-                    </form>
+                    <div class="mt-auto">
+                        <form action="/<%= puzzle._id %>/add?_method=PUT", method="POST">
+                            <button class="btn btn-primary">Add to Exchange Inventory</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

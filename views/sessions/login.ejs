@@ -7,15 +7,35 @@
 
   <body>
     <%- include('../partials/nav.ejs') %>
-    <h1>Login</h1>
-    <form action="/login" method="POST">
-      <label for="username">Username: </label>
-      <input type="text" name="username" id="username" />
-
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" />
-
-      <input type="submit" value="Login" />
-    </form>
+    <div class="container-fluid text-center mb-5">
+      <img src="https://i.imgur.com/iWw6nnu.png" width="400px">
+      <img src="https://i.imgur.com/X2G7JQX.png" width="150px">
+    </div>
+    <div class="container shadow-lg p-3 mb-5 bg-body rounded" style="width: 50%;">
+      <form action="/login" method="POST">
+        <h1 class="text-center mb-5">Log In</h1>
+        <div class="row justify-content-center">
+          <div class="col-md-10">
+            <div class="form-floating mb-3">
+              <input type="text" name="username" id="username" class="form-control" placeholder="Username"/>
+              <label for="username" class="form-label">Username</label>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-10">
+            <div class="form-floating">
+              <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password"/>
+              <label for="password">Password</label>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+          <div class="col-md-2">
+            <input type="submit" value="Log In" class="form-label btn btn-primary btn-lg"/>
+          </div>
+        </div>    
+      </form>
+    </div>
   </body>
 </html>

@@ -7,7 +7,10 @@
 </head>
 <body>
     <%- include('../partials/nav.ejs') %>
-    <h1>Edit <%= puzzle.title %></h1>
+    <div class="container-fluid text-center">
+      <img src="https://i.imgur.com/iWw6nnu.png" width="200px">
+    </div>
+    <h1 class="text-center m-4">Edit <%= puzzle.title %></h1>
     <div class="container" style="max-width:80%;">
       <form action = "/puzzles/<%= puzzle._id %>?_method=PUT" method="POST">
         <div class="row justify-content-center p-2">
@@ -38,7 +41,7 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-md-3 p-4">
-              <button type="submit" class="btn btn-primary">Submit Changes</button>
+              <button type="submit" class="btn btn-primary btn-lg">Submit Changes</button>
             </div>
           </div>
         </div>
