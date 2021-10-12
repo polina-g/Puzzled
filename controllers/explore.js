@@ -20,10 +20,11 @@ exploreRouter.get('/', helper.isAuthenticated, helper.findUser, async (req, res)
 //==============================SHOW===========================================
 exploreRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
-        const puzzle = await Puzzle.findById(req.params.id); 
+        const puzzle = await Puzzle.findById(req.params.id).populate('owner_user'); 
         res.render('./explore/show.ejs', {
             puzzle: puzzle,
-            user: req.user
+            user: req.user,
+            owner: puzzle.owner_user.username
         });   
     } catch (error) {
         console.log('Something went wrong loading the explore puzzle show page! Error: ', error);
