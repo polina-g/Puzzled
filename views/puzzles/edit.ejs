@@ -2,25 +2,52 @@
 <html lang="en">
 <head>
     <%- include('../partials/head.ejs') %>
+    <script src="/scripts/upload-img.js" defer></script>
     <title>Edit Puzzle</title>
 </head>
 <body>
     <%- include('../partials/nav.ejs') %>
     <h1>Edit <%= puzzle.title %></h1>
-    <form class="form" action = "/puzzles/<%= puzzle._id %>?_method=PUT" method="POST">
-      <input type="text" id="img" name="img" placeholder="Type in URL to change image">
-      <label for="img">URL</label>
-      <button type="button" class="btn btn-primary">Click to See New Image</button>
-      <div>
-        <img id="display-img" src="<%= puzzle.img %>" width="500px"><br>
-        <input type="text" id="title" name="title" value="<%= puzzle.title %>">
-        <label for="title">Puzzle Name</label><br>
-        <textarea name="description"><%= puzzle.description %></textarea><br>
-        <input id="exchangeable" type="checkbox" name="exchangeable"
-            <% if (puzzle.exchangeable) { %> checked <% } %>>
-        <label for="exchangeable">Exchangeable</label><br>
-        <button type="submit" class="btn btn-primary">Submit Changes</button>
-      </div>
-    </form>
+    <div class="container" style="max-width:80%;">
+      <form action = "/puzzles/<%= puzzle._id %>?_method=PUT" method="POST">
+        <div class="row justify-content-center p-2">
+          <div class="col-md-6">
+            <label for="img" class="form-label">Image URL</label>
+            <input class="form-control" type="text" id="url-input" name="img" placeholder="type you URL here">
+          </div>
+        </div>
+        <div class="row justify-content-center my-3">
+          <div class="col-md-3">
+            <button type="button" class="btn btn-primary" id="upload-btn">Click to See New Image</button>
+          </div>
+        </div>
+        <div class="container my-5 shadow p-3 mb-5 bg-body rounded">
+          <div class="row">
+            <div class="col-md-6 p-3">
+              <img id="display-img" src="<%= puzzle.img %>" width="100%">
+            </div>
+            <div class="col-md-6 p-4">
+                <label for="title" class="form-label">Puzzle Name</label><br>
+                <input type="text" class="form-control mb-4" id="title" name="title" value="<%= puzzle.title %>">
+                <label for="description" class="form-label">Brief Description</label>
+                <textarea name="description" class="form-control" rows="6"><%= puzzle.description %></textarea><br>
+                <input id="exchangeable" type="checkbox" name="exchangeable" class="form-check-input"
+                <% if (puzzle.exchangeable) { %> checked <% } %>>
+                <label for="exchangeable" class="form-check-label">Exchangeable</label><br>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-3 p-4">
+              <button type="submit" class="btn btn-primary">Submit Changes</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+
+
+
   </body>
 </html>

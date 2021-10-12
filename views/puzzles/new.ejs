@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <%- include('../partials/head.ejs') %>
+    <script src="/scripts/upload-img.js" defer></script>
     <title>Upload Puzzle</title>
   </head>
 
@@ -13,12 +14,12 @@
         <div class="row justify-content-center p-2">
           <div class="col-md-6">
             <label for="img" class="form-label">Image URL</label>
-            <input class="form-control" type="text" id="img" name="img" placeholder="type you URL here" required>
+            <input class="form-control" type="text" id="url-input" name="img" placeholder="type you URL here" required>
           </div>
         </div>
         <div class="row justify-content-center my-3">
           <div class="col-md-2">
-            <button type="button" class="btn btn-primary">Upload Image</button>
+            <button type="button" class="btn btn-primary" id="upload-btn">Upload Image</button>
           </div>
         </div>
         <div class="container my-5 shadow p-3 mb-5 bg-body rounded">
