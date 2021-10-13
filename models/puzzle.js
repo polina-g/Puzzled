@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const Puzzle = new Schema ({
     owner_user: {type: Schema.Types.ObjectId, ref: 'User'},
     title: String, 
-    img: {type: String, required: true},
+    img: {type: String, default: 'https://i.imgur.com/hHjTONV.png'},
     description: String,
     exchangeable: {type: Boolean, default: false},
     isAvailable: {type: Boolean, default: true}
