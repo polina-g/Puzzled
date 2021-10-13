@@ -16,7 +16,10 @@ async function findUser(req, res, next) {
 }
 
 async function uploadImage (req, res, next) {
-    console.log(req.files.img);
+    if (req.body.img !== '') {
+        next();
+    }
+
     const img = req.files.img;
     img.mv(`./uploads/${img.name}`);
     try {

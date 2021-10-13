@@ -90,10 +90,11 @@ puzzleRouter.put('/:id', helper.isAuthenticated, async (req, res) => {
 });
 //==============================CREATE (DONE, TESTED)==========================
 puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, helper.uploadImage, async (req, res) => {
-    //Creating new puzzle in database
     req.body.owner_user = req.session.user;
     req.body.exchangeable = !!req.body.exchangeable;
-    req.body.img = req.imgUrl;
+    if (req.imgUrl) {
+        req.body.img = req.imgUrl;
+    }
     try {
         const createdPuzzle = await Puzzle.create(req.body);
         res.redirect('/puzzles/dashboard');
@@ -106,7 +107,7 @@ puzzleRouter.get('/:id/edit', helper.isAuthenticated, helper.findUser, async (re
     const puzzle = await Puzzle.findById(req.params.id);
     res.render('./puzzles/edit.ejs', {
         puzzle: puzzle,
-        user: req.user
+        user: req.user,
     });
 });
 //==============================SHOW(DONE, TESTED)=============================

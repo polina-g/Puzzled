@@ -10,9 +10,11 @@
         <a href="/puzzles/new"><button class="btn btn-lg btn-outline-primary ms-1">Upload</button></a>
         <a href="/explore"><button class="btn btn-lg btn-outline-primary ms-1">Explore</button></a>
         <a href = "/inventory"><button class="btn btn-lg btn-outline-primary ms-1 position-relative">My Exchange Inventory
+          <% if (user.exchange_inventory?.length > 0) { %>
           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            2
+            <%= user.exchange_inventory?.length %>
             <span class="visually-hidden">New Puzzles</span>
+            <% } %>
           </span>
         </button></a> 
         <div class="ms-4">

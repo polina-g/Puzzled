@@ -13,18 +13,20 @@
     </div>
     <div class="container" style="max-width:80%;">
       <form action = "/puzzles" method="POST" enctype="multipart/form-data">
-        cover image <input type="file" name="img"><br>
         <div class="row justify-content-center p-2">
-          <div class="col-md-6">
-            <label for="img" class="form-label">Image URL</label>
-            <input class="form-control" type="text" id="url-input" name="img" placeholder="type you URL here">
+          <div class="col-md-4">
+            <label for="upload-img" class="form-label">Upload and Image</label> 
+            <input type="file" name="img" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label for="url-input" class="form-label">Image URL</label>
+            <input class="form-control" type="text" id="url-input" name="img" placeholder="Or Type in a URL">
+          </div>
+          <div class="col-md-3 mt-auto">
+            <button type="button" class="btn btn-primary" id="upload-btn">Show Image</button>
           </div>
         </div>
-        <div class="row justify-content-center my-3">
-          <div class="col-md-2">
-            <button type="button" class="btn btn-primary" id="upload-btn">Add Image</button>
-          </div>
-        </div>
+
         <div class="container my-5 shadow p-3 mb-5 bg-body rounded">
           <div class="row">
             <div class="col-md-6 p-3">
