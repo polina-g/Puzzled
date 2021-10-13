@@ -14,8 +14,10 @@ userRouter.get('/clear', async (req, res) => {
 //==========================NEW REGISTRATION===================================
 userRouter.get('/signup', (req, res) => {
     res.render('./users/signup.ejs', {
-        user: req.session.user});
-})
+        user: req.session.user,
+        error: null
+    });
+});
 //==========================REMOVE FROM INVENTORY==============================
 userRouter.delete('/inventory/:index/:puzzleId', helper.isAuthenticated, helper.findUser, async (req, res) => {
     const puzzle = await Puzzle.findById(req.params.puzzleId);
@@ -27,6 +29,15 @@ userRouter.delete('/inventory/:index/:puzzleId', helper.isAuthenticated, helper.
 });
 //==========================CREATE REGISTRATION================================
 userRouter.post('/signup', async (req, res) => {
+    //Check username is not taken
+    const repeatedUsername = await User.find({'username': req.body.username});
+    if (repeatedUsername) {
+        return res.render('./users/signup.ejs', {
+            user: req.session.user,
+            error: 'Username not available'
+        });
+    };
+
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
     try {
         const createdUser = await User.create(req.body);
@@ -34,7 +45,7 @@ userRouter.post('/signup', async (req, res) => {
         res.redirect('puzzles/dashboard')
     } catch (error) {
         console.log('something went wrong when adding registration ', + error);
-    }
+    };
 });
 //==========================UPDATE EXCHANGE INVENTORY==========================
 userRouter.put('/:id/add', helper.isAuthenticated, helper.findUser, async (req, res) => {
@@ -52,7 +63,7 @@ userRouter.put('/:id/add', helper.isAuthenticated, helper.findUser, async (req, 
         res.redirect('/inventory');
     } catch (error) {
         console.log('Somethng went wrong adding puzzle to exchange inventory! Error: ', error);
-    }
+    };
 });
 //==========================ADD PUZZLE TO EXCHANGE INVENTORY===================
 userRouter.get('/inventory', helper.isAuthenticated, helper.findUser, (req, res) => {

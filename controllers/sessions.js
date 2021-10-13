@@ -1,5 +1,4 @@
 const express = require('express');
-const session = require('express-session');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.js');
 const sessionsRouter = express.Router();
@@ -7,7 +6,8 @@ const sessionsRouter = express.Router();
 //==========================LOGIN PAGE (NEW)===================================
 sessionsRouter.get('/login', (req, res) => {
     res.render('sessions/login.ejs', {
-        user: req.session.user
+        user: req.session.user, 
+        error: null
     });
 })
 //==========================LOGIN ROUTE========================================
@@ -19,7 +19,7 @@ sessionsRouter.post('/login', async (req, res) => {
             res.redirect('/puzzles/dashboard');
         } else {
             res.render('./sessions/login.ejs', {
-                error: 'Invalid Username or Password', 
+                error: 'Invalid Credentials', 
                 user: req.session.user
             });
         };

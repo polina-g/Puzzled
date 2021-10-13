@@ -1,0 +1,17 @@
+.error {
+    width: 80%;
+    height: 80px; 
+    padding-top: 15px;
+    margin: 5px auto 15px auto; 
+    border: 1px solid rgb(245, 194, 199);
+    border-radius: 4px;
+    background-color: rgb(248, 215, 218);
+    color: rgb(132, 32, 41);
+    font-size: 1.7em;
+    text-align: center;
+}
+
+.error-text {
+    width: 80%;
+    margin: 0 auto; 
+}
