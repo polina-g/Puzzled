@@ -23,17 +23,19 @@
                     <p class="card-text">
                         <small class="text-muted">
                         <% if (puzzle.isAvailable == true) { %>
-                            <p>Currently Available</p>
-                            <% } else { %>
-                            <p>Someone is currently enjoying this puzzle!</p>
-                        <% }; %>
+                            Currently Available
                         </small>
                     </p>
                     <div class="mt-auto">
                         <form action="/<%= puzzle._id %>/add?_method=PUT", method="POST">
                             <button class="btn btn-primary">Add to Exchange Inventory</button>
                         </form>
-                    </div>
+                    </div>                          
+                            <% } else { %>
+                            <p>Someone is currently enjoying this puzzle!</p>
+                        <% }; %>
+                        </small>
+                    </p>
                 </div>
             </div>
         </div>
