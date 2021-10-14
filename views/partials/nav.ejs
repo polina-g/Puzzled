@@ -1,35 +1,35 @@
 <nav class="navbar navbar-light">
   <div class="container-fluid d-flex justify-content-end">
-      <% if(user) { %>
-        <a href="/" class="navbar-brand">
-          <img src="https://i.imgur.com/X2G7JQX.png" width="80px">
-        </a>
-        <div class="d-flex flex-fill">
-          <a href="/puzzles/dashboard" class="btn btn-lg btn-outline-success">My Dashboard</a>
-        </div>
-        <a href="/puzzles/new"><button class="btn btn-lg btn-outline-primary ms-1">Upload</button></a>
-        <a href="/explore"><button class="btn btn-lg btn-outline-primary ms-1">Explore</button></a>
-        <a href = "/inventory"><button class="btn btn-lg btn-outline-primary ms-1 position-relative">My Exchange Inventory
-          <% if (user.exchange_inventory?.length > 0) { %>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            <%= user.exchange_inventory?.length %>
-            <span class="visually-hidden">New Puzzles</span>
-            <% } %>
-          </span>
-        </button></a> 
-        <div class="ms-4">
-          <form action="/logout?_method=DELETE" method="POST">
-            <input class="btn btn-lg btn-outline-danger" type="submit" value="Log Out" />
-          </form>
-        </div>
-      <% } else { %>
-      <div class="flex-fill">
-        <a href="/" class="navbar-brand">
-          <img src="https://i.imgur.com/X2G7JQX.png" width="80px">
-        </a>
-      </div>
-      <a href="/signup"><button class="btn btn-lg btn-outline-primary">Sign Up</button></a>
-      <a href="/login"><button class="btn btn-lg btn-outline-primary ms-2">Login</button></a>
-      <% } %>
+    <% if(user) { %>
+    <a href="/" class="navbar-brand">
+      <img src="https://i.imgur.com/X2G7JQX.png" width="80px">
+    </a>
+    <div class="d-flex flex-fill">
+      <a href="/puzzles/dashboard" class="btn btn-lg btn-outline-success">My Dashboard</a>
+    </div>
+    <a href="/puzzles/new"><button class="btn btn-lg btn-outline-primary ms-1">Upload</button></a>
+    <a href="/explore"><button class="btn btn-lg btn-outline-primary ms-1">Explore</button></a>
+    <a href="/inventory"><button class="btn btn-lg btn-outline-primary ms-1 position-relative">My Exchange Inventory
+        <% if (user.exchange_inventory?.length > 0) { %>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          <%= user.exchange_inventory?.length %>
+          <span class="visually-hidden">New Puzzles</span>
+          <% } %>
+        </span>
+      </button></a>
+    <div class="ms-4">
+      <form action="/logout?_method=DELETE" method="POST">
+        <input class="btn btn-lg btn-outline-danger" type="submit" value="Log Out" />
+      </form>
+    </div>
+    <% } else { %>
+    <div class="flex-fill">
+      <a href="/" class="navbar-brand">
+        <img src="https://i.imgur.com/X2G7JQX.png" width="80px">
+      </a>
+    </div>
+    <a href="/signup"><button class="btn btn-lg btn-outline-primary">Sign Up</button></a>
+    <a href="/login"><button class="btn btn-lg btn-outline-primary ms-2">Login</button></a>
+    <% } %>
   </div>
 </nav>

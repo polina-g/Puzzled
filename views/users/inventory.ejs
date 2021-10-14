@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <%- include('../partials/head.ejs') %>
-    <title>My Box</title>
+  <%- include('../partials/head.ejs') %>
+  <title>My Box</title>
 </head>
+
 <body>
-    <%- include('../partials/nav.ejs') %>
-    <div class="container-fluid text-center">
-        <img src="https://i.imgur.com/iWw6nnu.png" width="200px">
-    </div>
-    <% user.exchange_inventory.forEach((item, index) => { %>
-        <div class="container card mb-3 my-3 border-light shadow p-3 mb-5 bg-body rounded" style="max-width: 80%;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="<%=item.img%>" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body d-flex flex-column" style="height:100%">
-                        <h1 class="card-title"><%= item.title %></h1>
-                        <p class="card-text fs-4"><%= item.description %></p>
-                        <div class="d-flex mt-auto">
-                            <a href="/explore/<%= item._id %>"><button class="btn btn-outline-info mx-2">View Details</button></a>
-                            <form action="/inventory/<%=index%>/<%=item._id%>?_method=DELETE", method="POST">
-                                <button class="btn btn-outline-danger">Complete and Remove</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <%- include('../partials/nav.ejs') %>
+  <div class="container-fluid text-center">
+    <img src="https://i.imgur.com/iWw6nnu.png" width="200px">
+  </div>
+  <% user.exchange_inventory.forEach((item, index) => { %>
+  <div class="container card mb-3 my-3 border-light shadow p-3 mb-5 bg-body rounded" style="max-width: 80%;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="<%=item.img%>" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body d-flex flex-column" style="height:100%">
+          <h1 class="card-title"><%= item.title %></h1>
+          <p class="card-text fs-4"><%= item.description %></p>
+          <div class="d-flex mt-auto">
+            <a href="/explore/<%= item._id %>"><button class="btn btn-outline-info mx-2">View Details</button></a>
+            <form action="/inventory/<%=index%>/<%=item._id%>?_method=DELETE" , method="POST">
+              <button class="btn btn-outline-danger">Complete and Remove</button>
+            </form>
+          </div>
         </div>
-    <% }) %>
+      </div>
+    </div>
+  </div>
+  <% }) %>
 </body>
+
 </html>

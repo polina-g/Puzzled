@@ -11,6 +11,6 @@ const Puzzle = new Schema ({
     isAvailable: {type: Boolean, default: true}
 },
 {timestamps: true}
-)
+);
 
 module.exports = mongoose.model('Puzzle', Puzzle);

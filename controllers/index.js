@@ -10,4 +10,8 @@ indexRouter.get('/', helper.findUser, (req, res) => {
     });
 });
 
+indexRouter.get('/error', (req, res) => {
+    res.render('error.ejs', {error: 'Ooops! Something went wrong!'});
+});
+
 module.exports = indexRouter; 
