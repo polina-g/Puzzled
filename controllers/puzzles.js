@@ -69,12 +69,19 @@ puzzleRouter.delete('/:id', helper.isAuthenticated, async (req, res) => {
     };
 });
 //==============================UPDATE(DONE, TESTED)===========================
-puzzleRouter.put('/:id', helper.isAuthenticated, async (req, res) => {
+puzzleRouter.put('/:id', helper.isAuthenticated, helper.uploadImage, async (req, res) => {
     req.body.exchangeable = !!req.body.exchangeable;
-    if (req.body.img == '') {
+    //Logic for updarting the image based on user input - URL or upload
+    if (!req.imgUrl && req.img == '') {
         const puzzle = await Puzzle.findById(req.params.id);
-        req.body.img = puzzle.img;
-    }
+        req.body.img = puzzle.img;    
+    } else if (req.imgUrl) {
+        req.body.img = req.imgUrl;
+    };
+
+    //Delete unnecessary second image name
+    delete req.body.uimg;
+    console.log("BODY: ", req.body);
     
     try {
         const newPuzzle = await Puzzle.findByIdAndUpdate(
@@ -86,7 +93,7 @@ puzzleRouter.put('/:id', helper.isAuthenticated, async (req, res) => {
         res.redirect(`/puzzles/${req.params.id}`);
     } catch (error) {
         console.log('something went wront updating the puzzle. Error: ', error);
-    }
+    };
 });
 //==============================CREATE (DONE, TESTED)==========================
 puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, helper.uploadImage, async (req, res) => {
@@ -120,7 +127,7 @@ puzzleRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, re
         });
     } catch (error) {
         console.log('something went wron showing the puzzle. Error: ', error);
-    }
+    };
 });
 
 module.exports = puzzleRouter; 

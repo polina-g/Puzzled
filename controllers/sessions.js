@@ -37,5 +37,5 @@ sessionsRouter.delete('/logout', async (req, res) => {
     } catch (error) {
         console.log('something went wrong logging out: ', error);
     }
-})
+});
 module.exports = sessionsRouter; 

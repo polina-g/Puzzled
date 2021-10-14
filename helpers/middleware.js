@@ -16,11 +16,11 @@ async function findUser(req, res, next) {
 }
 
 async function uploadImage (req, res, next) {
-    if (req.body.img !== '') {
-        next();
+    if(!req.files) {
+        req.imgUrl = null;
+        return next();
     }
-
-    const img = req.files.img;
+    
     img.mv(`./uploads/${img.name}`);
     try {
         const upload = await cloudinary.uploader.upload(`./uploads/${img.name}`);
