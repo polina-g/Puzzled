@@ -5,35 +5,37 @@ const cloudinary = require('cloudinary');
 function isAuthenticated(req, res, next) {
     if(!req.session.user) { 
         return res.redirect('/login');
-    } 
+    };
     next(); 
-}
+};
 
 async function findUser(req, res, next) {
     const user = await User.findById(req.session.user);
     req.user = user;
     next();
-}
+};
 
 async function uploadImage (req, res, next) {
+    //Case - files does not exist
     if(!req.files) {
         req.imgUrl = null;
         return next();
-    }
+    };
     
+    //When files does exist in the request body
     img.mv(`./uploads/${img.name}`);
     try {
         const upload = await cloudinary.uploader.upload(`./uploads/${img.name}`);
         req.imgUrl = upload.secure_url;
     } catch (error) {
-        console.log('Something went wrong uploading the image. Error: ', error);
-    }
+        res.render('error.ejs', {error: 'Oopps, something went wrong! Please try again latet!'});
+    };
     next();
-}
+};
 
   
 module.exports = {
     isAuthenticated,
     findUser,
     uploadImage,
-}
+};

@@ -9,7 +9,7 @@ sessionsRouter.get('/login', (req, res) => {
         user: req.session.user, 
         error: null
     });
-})
+});
 //==========================LOGIN ROUTE========================================
 sessionsRouter.post('/login', async (req, res) => {
     try {
@@ -24,10 +24,8 @@ sessionsRouter.post('/login', async (req, res) => {
             });
         };
     } catch (error) {
-        console.log('error: ', error)
-    }
-
-
+        res.render('error.ejs', {error: 'Oopps, something went wrong logging in. Please try again later!'});
+    };
 });
 //==========================LOGOUT ROUTE=======================================
 sessionsRouter.delete('/logout', async (req, res) => {
@@ -35,7 +33,8 @@ sessionsRouter.delete('/logout', async (req, res) => {
         await req.session.destroy();
         res.redirect('/')
     } catch (error) {
-        console.log('something went wrong logging out: ', error);
+        res.render('error.ejs', {error: 'Oopps, something went wrong. Please try again later!'});
     }
 });
+
 module.exports = sessionsRouter; 

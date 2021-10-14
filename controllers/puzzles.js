@@ -2,17 +2,12 @@ const puzzleRouter = require('express').Router();
 const Puzzle = require('../models/puzzle.js');
 const User = require('../models/user.js');
 const helper = require('../helpers/middleware.js');
-const puzzleSeedA = require('../models/seed.js');
-const puzzleSeedB = require('../models/seedB.js');
-const puzzleSeedC = require('../models/seedC.js');
-let error = '';
 //=============================================================================
 //ROUTES
 //=============================================================================
-//==============================INDEX (DONE, TESTED)===========================
+//==============================INDEX==========================================
 puzzleRouter.get('/error', (req, res) => {
-    error = "something went wrong"
-    res.render('error.ejs', {error});
+    res.render('error.ejs', {error: 'Oopps, something went wrong!'});
 })
 puzzleRouter.get('/dashboard', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
@@ -22,29 +17,28 @@ puzzleRouter.get('/dashboard', helper.isAuthenticated, helper.findUser, async (r
             puzzles: puzzles
         });
     } catch (error) {
-        console.log('something went wrong loading dashboard: ', error);
+        res.render('error.ejs', {error: 'Oopps, something went wrong! Please try again later!'});
     };
 });
-//==============================NEW (DONE, TESTED)=============================
+//==============================NEW============================================
 puzzleRouter.get('/new', helper.isAuthenticated, helper.findUser, (req, res) => { 
     res.render('./puzzles/new.ejs', {
         user: req.user
     });
 });
-//==============================DELETE(DONE, TESTED)===========================
+//==============================DELETE=========================================
 puzzleRouter.delete('/:id', helper.isAuthenticated, async (req, res) => {
     try {
         await Puzzle.findByIdAndDelete(req.params.id);
         res.redirect('/puzzles/dashboard');
     } catch (error) {
-        console.log('Something went wrong deleting the puzzle. Error: ', error);
+        res.render('error.ejs', {error: 'Oopps, something went wrong! Please try again later'});;
     };
 });
-//==============================UPDATE(DONE, TESTED)===========================
+//==============================UPDATE=========================================
 puzzleRouter.put('/:id', helper.isAuthenticated, helper.uploadImage, async (req, res) => {
     req.body.exchangeable = !!req.body.exchangeable;
     //Logic for updating the image based on user input - URL or upload
-    console.log('req.imgURL: ', req.imgUrl, 'req.img', req.img);
     if (!req.imgUrl && req.body.img == '') {
         const puzzle = await Puzzle.findById(req.params.id);
         req.body.img = puzzle.img;    
@@ -63,10 +57,10 @@ puzzleRouter.put('/:id', helper.isAuthenticated, helper.uploadImage, async (req,
         );
         res.redirect(`/puzzles/${req.params.id}`);
     } catch (error) {
-        console.log('something went wront updating the puzzle. Error: ', error);
+        res.render('error.ejs', {error: 'Oopps, something went wrong!'});
     };
 });
-//==============================CREATE (DONE, TESTED)==========================
+//==============================CREATE=========================================
 puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, helper.uploadImage, async (req, res) => {
     req.body.owner_user = req.session.user;
     req.body.exchangeable = !!req.body.exchangeable;
@@ -77,10 +71,11 @@ puzzleRouter.post('/', helper.isAuthenticated, helper.findUser, helper.uploadIma
         const createdPuzzle = await Puzzle.create(req.body);
         res.redirect('/puzzles/dashboard');
     } catch (error) {
-        console.log('something went wrong creating new document. Error: ', error);
-    }
+        res.render('error.ejs', {error: 'Oopps, something went wrong. Please try again later!'});
+    };
 });
-//==============================EDIT(DONE, TESTED)=============================
+
+//==============================EDIT===========================================
 puzzleRouter.get('/:id/edit', helper.isAuthenticated, helper.findUser, async (req, res) => {
     const puzzle = await Puzzle.findById(req.params.id);
     res.render('./puzzles/edit.ejs', {
@@ -88,7 +83,7 @@ puzzleRouter.get('/:id/edit', helper.isAuthenticated, helper.findUser, async (re
         user: req.user,
     });
 });
-//==============================SHOW(DONE, TESTED)=============================
+//==============================SHOW===========================================
 puzzleRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, res) => {
     //I know this is super cumbersome, but I couldnt get the promises to work correctly when I separated the second async User search into a helper function! This is the only way I was able to get it to work. Feedback and suggestions would be very appreaciated, if possible!
     try {
@@ -112,10 +107,10 @@ puzzleRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, re
                 borrowed_by: borrowingUser.username
             });
         } catch (error) {
-            console.log('Something went wrong when finding the user borrowing the puzzle', error);
+            res.render('error.ejs', {error: 'Oopps, something went wrong. Please try again later!'});
         };
     } catch (error) {
-        console.log('something went wrong showing the puzzle. Error: ', error);
+        res.render('error.ejs', {error: 'Oopps, something went wrong. Please try again later!'});
     };
 });
 

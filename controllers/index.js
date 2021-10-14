@@ -8,6 +8,6 @@ indexRouter.get('/', helper.findUser, (req, res) => {
     res.render('index.ejs', {
         user: req.session.user
     });
-})
+});
 
 module.exports = indexRouter; 
