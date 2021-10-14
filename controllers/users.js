@@ -50,12 +50,12 @@ userRouter.post('/signup', async (req, res) => {
 //==========================UPDATE EXCHANGE INVENTORY==========================
 userRouter.put('/:id/add', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
-    //TODO
         //Find relevant puzzle from req.param.id
         const puzzle = await  Puzzle.findById(req.params.id);
-        //Change isAvailable to false in the puzzle
+        //Change isAvailable to false in the puzzle and add current user as the borrower. 
         puzzle.isAvailable = false;
-        puzzle.save();
+        puzzle.borrowed_user = req.user._id;
+        await puzzle.save();
         //Update User model to add puzzle object in the puzzle array
         req.user.exchange_inventory.push(puzzle);
         await req.user.save();

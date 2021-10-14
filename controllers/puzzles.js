@@ -88,7 +88,7 @@ puzzleRouter.put('/:id', helper.isAuthenticated, helper.uploadImage, async (req,
     delete req.body.uimg;
     
     try {
-        const newPuzzle = await Puzzle.findByIdAndUpdate(
+        await Puzzle.findByIdAndUpdate(
             req.params.id,
             req.body,
             {new: true},
@@ -122,14 +122,26 @@ puzzleRouter.get('/:id/edit', helper.isAuthenticated, helper.findUser, async (re
 });
 //==============================SHOW(DONE, TESTED)=============================
 puzzleRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, res) => {
+    //I know this is super cumbersome, but I couldnt get the promises to work correctly when I separated the second async User search into a helper function! This is the only way I was able to get it to work. Feedback and suggestions would be very appreaciated, if possible!
     try {
+        //Find the puzzle based on the query Id
         const puzzle = await Puzzle.findById(req.params.id);
-        res.render('./puzzles/show.ejs', {
-            puzzle: puzzle,
-            user: req.user
-        });
+
+        //Find the user stored as borrowed_user in found puzzle's Schema
+        try {
+            const borrowingUser = await User.findById(puzzle.borrowed_user);
+            
+            //Render page
+            res.render('./puzzles/show.ejs', {
+                puzzle: puzzle,
+                user: req.user,
+                borrowed_by: borrowingUser.username
+            });
+        } catch (error) {
+            console.log('Something went wrong when finding the user borrowing the puzzle', error);
+        };
     } catch (error) {
-        console.log('something went wron showing the puzzle. Error: ', error);
+        console.log('something went wrong showing the puzzle. Error: ', error);
     };
 });
 

@@ -31,6 +31,7 @@ async function uploadImage (req, res, next) {
     next();
 }
 
+  
 module.exports = {
     isAuthenticated,
     findUser,
