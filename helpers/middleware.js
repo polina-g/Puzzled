@@ -23,6 +23,7 @@ async function uploadImage (req, res, next) {
     };
     
     //When files does exist in the request body
+    const img = req.files.uimg;
     img.mv(`./uploads/${img.name}`);
     try {
         const upload = await cloudinary.uploader.upload(`./uploads/${img.name}`);
