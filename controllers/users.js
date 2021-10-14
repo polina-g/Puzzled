@@ -22,6 +22,7 @@ userRouter.get('/signup', (req, res) => {
 userRouter.delete('/inventory/:index/:puzzleId', helper.isAuthenticated, helper.findUser, async (req, res) => {
     const puzzle = await Puzzle.findById(req.params.puzzleId);
     puzzle.isAvailable = true;
+    puzzle.borrowed_user = null;
     await puzzle.save();
     req.user.exchange_inventory.splice(req.params.index, 1); 
     await req.user.save();

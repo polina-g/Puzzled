@@ -76,8 +76,9 @@ puzzleRouter.delete('/:id', helper.isAuthenticated, async (req, res) => {
 //==============================UPDATE(DONE, TESTED)===========================
 puzzleRouter.put('/:id', helper.isAuthenticated, helper.uploadImage, async (req, res) => {
     req.body.exchangeable = !!req.body.exchangeable;
-    //Logic for updarting the image based on user input - URL or upload
-    if (!req.imgUrl && req.img == '') {
+    //Logic for updating the image based on user input - URL or upload
+    console.log('req.imgURL: ', req.imgUrl, 'req.img', req.img);
+    if (!req.imgUrl && req.body.img == '') {
         const puzzle = await Puzzle.findById(req.params.id);
         req.body.img = puzzle.img;    
     } else if (req.imgUrl) {
@@ -126,6 +127,12 @@ puzzleRouter.get('/:id', helper.isAuthenticated, helper.findUser, async (req, re
     try {
         //Find the puzzle based on the query Id
         const puzzle = await Puzzle.findById(req.params.id);
+        if (!puzzle.borrowed_user) {
+            return res.render('./puzzles/show.ejs', {
+                puzzle: puzzle,
+                user: req.user
+            });
+        };
 
         //Find the user stored as borrowed_user in found puzzle's Schema
         try {
