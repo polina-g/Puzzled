@@ -42,7 +42,6 @@ cloudinary.config({
     api_key: API_KEY, 
     api_secret: API_SECRET
   });
-
 app.use('/', indexController);
 app.use('/', userController);
 app.use('/', sessionController);
