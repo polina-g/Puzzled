@@ -5,6 +5,7 @@ const helper = require('../helpers/middleware.js');
 const puzzleSeedA = require('../models/seed.js');
 const puzzleSeedB = require('../models/seedB.js');
 const puzzleSeedC = require('../models/seedC.js');
+let error = '';
 //=============================================================================
 //ROUTES
 //=============================================================================
@@ -42,6 +43,10 @@ puzzleRouter.get('/seedC', helper.isAuthenticated, async (req, res) => {
     }; 
 });
 //==============================INDEX (DONE, TESTED)===========================
+puzzleRouter.get('/error', (req, res) => {
+    error = "something went wrong"
+    res.render('error.ejs', {error});
+})
 puzzleRouter.get('/dashboard', helper.isAuthenticated, helper.findUser, async (req, res) => {
     try {
         const puzzles = await Puzzle.find({'owner_user': req.user});
@@ -81,7 +86,6 @@ puzzleRouter.put('/:id', helper.isAuthenticated, helper.uploadImage, async (req,
 
     //Delete unnecessary second image name
     delete req.body.uimg;
-    console.log("BODY: ", req.body);
     
     try {
         const newPuzzle = await Puzzle.findByIdAndUpdate(
@@ -89,7 +93,6 @@ puzzleRouter.put('/:id', helper.isAuthenticated, helper.uploadImage, async (req,
             req.body,
             {new: true},
         );
-        console.log(newPuzzle);
         res.redirect(`/puzzles/${req.params.id}`);
     } catch (error) {
         console.log('something went wront updating the puzzle. Error: ', error);
