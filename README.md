@@ -52,8 +52,8 @@ Welcome to Puzzled...it's great to see you!
 
 # Future Enhancements
 
-### 1. Messaging system between puzzle owners and borrowers
-### 2. Receiving notifications when one of your puzzles is added to someone's their inventory
+### 1. Add messaging system between puzzle owners and borrowers
+### 2. Receive notifications when one of your puzzles is added to someone's their inventory
 ### 3. Include puzzle ratings, difficulty level and other more descriptive information
 ### 4. Add reviews and likes to puzzles set for exchange. 
 
