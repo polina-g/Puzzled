@@ -39,11 +39,11 @@ Welcome to Puzzled...it's great to see you!
 ### View and add these puzzles to your exchange inventory
 ![screenshot 1](https://i.imgur.com/HSjszlf.png)
 
-### Mark as complete and remove puzzles from exchanfe inventory once done!
+### Mark as complete and remove puzzles from exchange inventory once done!
 ![screenshot 1](https://i.imgur.com/ivxZaWy.png)
 
 ## Getting Started
-- Click on the link below to get started exploring!!
+- Click on the link below to startexploring!!
 - Create a new account or use the guest sign in if you would like to just look around!
 - Upload new puzzles, explore other puzzles in the community and add puzzles to your exchange inventory! (Added puzzles to your exchange inventory will no longer be seen on the explore page)
 - More features to come!
@@ -53,8 +53,8 @@ Welcome to Puzzled...it's great to see you!
 # Future Enhancements
 
 ### 1. Messaging system between puzzle owners and borrowers
-### 2. Receiving notification when a user add one of your puzzles to their inventory
-### 3. Include puzzle rating, difficulty level and other more descriptive information
+### 2. Receiving notifications when one of your puzzles is added to someone's their inventory
+### 3. Include puzzle ratings, difficulty level and other more descriptive information
 ### 4. Add reviews and likes to puzzles set for exchange. 
 
 # Author
