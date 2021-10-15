@@ -3,6 +3,7 @@
 
 <head>
   <%- include('../partials/head.ejs') %>
+  <link rel="stylesheet" href="/css/style.css">
   <title>Dashboard</title>
 </head>
 
@@ -12,10 +13,17 @@
     <img src="https://i.imgur.com/iWw6nnu.png" width="200px">
   </div>
   <div class="container">
-    <h1 class="text-center mt-3">
+    <h1 class="text-center mt-3 display-3 welcome">
       Welcome to your Dashboard <%= user.username %>
     </h1>
   </div>
+  <% if (puzzles.length == 0) { %>
+    <div class="empty-container container">
+      <h3 class="display-5">Nothing here yet...</h3>
+      <p class="lead fs-4">Upload a New Puzzle to get your collection started!</p>
+      <img src="https://i.imgur.com/6cU702T.png" width="200px">
+    </div>
+  <% } %>
   <div class="container d-flex flex-wrap">
     <% puzzles.forEach(puzzle => { %>
     <div class="card mx-3 my-3 border-info shadow mb-5 bg-body rounded" style="width: 25rem;">
