@@ -3,6 +3,7 @@
 
 <head>
   <%- include('../partials/head.ejs') %>
+  <link rel="stylesheet" href="/css/style.css">
   <title>My Box</title>
 </head>
 
@@ -11,6 +12,13 @@
   <div class="container-fluid text-center">
     <img src="https://i.imgur.com/iWw6nnu.png" width="200px">
   </div>
+  <% if (user.exchange_inventory.length == 0) { %>
+    <div class="empty-container container">
+      <h3 class="display-4">Nothing here yet...</h3>
+      <p class="lead fs-4">Check out the Explore Page to find some new puzzles!!</p>
+      <img src="https://i.imgur.com/6cU702T.png" width="200px">
+    </div>
+  <% } %>
   <% user.exchange_inventory.forEach((item, index) => { %>
   <div class="container card mb-3 my-3 border-light shadow p-3 mb-5 bg-body rounded" style="max-width: 80%;">
     <div class="row g-0">
